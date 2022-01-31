@@ -1,1 +1,2 @@
 # rock-paper-scissors
+The goal of this project is to use Javascript (primarily) to develop a simple game of Rock, Paper, Scissors. This will be my first Javascript project, so I look forward to the learning experience that it will provide.
