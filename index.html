@@ -1,75 +1,63 @@
-<script>
-    const scoreTable = {
-        "player": 0,
-        "computer": 0
-    };
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet">
+    <script src="./script.js" defer></script>
+</head>
+<body>
+    <div class="nav">
+        <div class="logo">
+            <h1>LOGO</h1>
+        </div>
+        <div class="nav-rhs">
+            <ul class="right-links">
+                <li><a href="">About</a></li>
+                <li><a href="">Contact</a></li>
+            </ul>
+        </div>
+    </div>
 
-    console.log(simulateGame(5));
-
-    function computerPlay() {
-        let options = ['Rock', 'Paper', 'Scissors'];
-        randomIndex = Math.floor(Math.random() * 3);
-        return options[randomIndex];
-    }
-
-    function simulateRound(playerSelection, computerSelection) {
-        playerSelection = playerSelection.toLowerCase();
-        switch (playerSelection) {
-            case 'rock':
-                if (computerSelection === 'Paper') {
-                    scoreTable["computer"]++;
-                    console.log("You lose! Paper beats rock!");
-                    break;
-                } else if (computerSelection === 'Scissors') {
-                    scoreTable["player"]++;
-                    console.log("You win! Rock beats scissors!");
-                    break;
-                } else {
-                    console.log("It's a tie! Rock can't beat rock!");
-                    break;
-                }
-            case 'paper':
-                if (computerSelection === 'Rock') {
-                    scoreTable["player"]++;
-                    console.log("You win! Paper beats rock!");
-                    break;
-                } else if (computerSelection === 'Scissors') {
-                    scoreTable["computer"]++;
-                    console.log("You lose! Scissors beats paper!");
-                    break;
-                } else {
-                    console.log("It's a tie! Paper can't beat Paper!");
-                    break;
-                }
-            case 'scissors':
-                if (computerSelection === 'Rock') {
-                    scoreTable["computer"]++;
-                    console.log("You lose! Rock beats scissors!");
-                    break;
-                } else if (computerSelection === 'Paper') {
-                    scoreTable["player"]++;
-                    console.log("You win! Scissors beats paper!");
-                    break;
-                } else {
-                    console.log("It's a tie! Scissors can't beat scissors!");
-                    break;
-                }
-            default:
-                console.log('Choose a valid option!');
-                break;
-        }
-        return;
-
-    }
-
-    function simulateGame(rounds) {
-        for (let round = 0; round < rounds; round++) {
-            let player = prompt('Rock, Paper, or Scissors?');
-            let computer = computerPlay();
-            simulateRound(player, computer);
-        }
-        let finalScore = `${scoreTable['player']} - ${scoreTable['computer']}`;
-        let winner = () => (scoreTable['player'] > scoreTable['computer']) ? `You win! Final score: ${finalScore}` : `You lose :( Final score: ${finalScore}`;
-        return winner()
-    }
-</script>
+    <div class="content">
+        <div class="activity">
+            <h2>Score</h2>
+            <div class="score">0 - 0</div>
+            <div class="results-container">
+                <div class="results"></div>
+            </div>
+        </div>
+        <div class="game">
+            <div class="cards">
+                <div class="card">
+                    <h3>HUMAN</h3>
+                    <div class="card-pic"></div>
+                    <!-- <div class="card-pic-human">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                              <img src="./img/rock.png" alt="Avatar" style="width:75px;height:75px;">
+                            </div>
+                            <div class="flip-card-back">
+                              <h1>Test</h1>
+                            </div>
+                          </div>
+                    </div> -->
+                </div>
+                <!-- TODO: Add flip feature to computer card as well -->
+                <div class="card">
+                    <h3>COMPUTER</h3>
+                    <div class="card-pic"></div>
+                </div>
+            </div>
+            <div class="choices">
+                <img id="rock" class="choice" src="./img/rock.png" alt="rock">
+                <img id="paper" class="choice" src="./img/paper.png" alt="paper">
+                <img id="scissors" class="choice" src="./img/scissors.png" alt="scissors">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
