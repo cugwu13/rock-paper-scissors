@@ -162,13 +162,6 @@ h2, .score {
     gap: 10px;
 }
 
-/* .card-pic {
-    background-color: white;
-    border: 3px solid black;
-    width: 150px;
-    height: 200px;
-} */
-
 .choices {
     flex: 1;
     display: flex;
