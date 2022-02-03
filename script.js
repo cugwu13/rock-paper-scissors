@@ -5,22 +5,39 @@ const scoreTable = {
 
 const results = document.querySelector('.results');
 const score = document.querySelector('.score');
-const winner = document.createElement('h2');
-
+const winner = document.createElement('p');
 const humanCard = document.querySelector('.card-pic-human .flip-card-inner');
+const cpuCard = document.querySelector('.card-pic-cpu .flip-card-inner');
+const blockDiv = document.querySelector('#block-div');
 
 const choices = document.querySelectorAll('.choice');
 choices.forEach(choice => choice.addEventListener(
-        'click', () => {
-            // humanCard.classList.toggle('flip');
-            //TODO: Add feature that flips computer's card as well
+        'click', () => runClickEvent(choice)));
 
-            //TODO: Add feature to flip card back after 2 seconds
+function runClickEvent(choice) {
+    // once a choice is clicked, toggle the block div... after some time, toggle it again
+    let cpuChoice = computerPlay().toLowerCase();
+    toggleBlockDiv();
+    addSymbolToCard(choice, 0, "human");
+    addSymbolToCard(cpuChoice, 1, "cpu");
+    flipPlayerCard();
+    setTimeout(flipCpuCard, 1000);
+    setTimeout(() => simulateRound(choice.id, cpuChoice), 1500);
+    setTimeout(() => {
+        flipPlayerCard();
+        flipCpuCard();
+    }, 2500);
+    setTimeout(() => {
+        removeSymbolFromCard(0);
+        removeSymbolFromCard(1);
+        toggleBlockDiv();
+        getWinner();
+    }, 2800);
+};
 
-            simulateRound(choice.id, computerPlay());
-            getWinner();
-        }
-));
+function toggleBlockDiv() {
+    blockDiv.classList.toggle('block-div');
+};
 
 function getWinner() {
     for (const opponent in scoreTable) {
@@ -45,11 +62,11 @@ function simulateRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
     switch (playerSelection) {
         case 'rock':
-            if (computerSelection === 'Paper') {
+            if (computerSelection === 'paper') {
                 scoreTable["computer"]++;
                 para.innerText = "You lose! Paper beats rock!";
                 break;
-            } else if (computerSelection === 'Scissors') {
+            } else if (computerSelection === 'scissors') {
                 scoreTable["player"]++;
                 para.innerText = "You win! Rock beats scissors!";
                 break;
@@ -58,11 +75,11 @@ function simulateRound(playerSelection, computerSelection) {
                 break;
             }
         case 'paper':
-            if (computerSelection === 'Rock') {
+            if (computerSelection === 'rock') {
                 scoreTable["player"]++;
                 para.innerText = "You win! Paper beats rock!";
                 break;
-            } else if (computerSelection === 'Scissors') {
+            } else if (computerSelection === 'scissors') {
                 scoreTable["computer"]++;
                 para.innerText = "You lose! Scissors beats paper!";
                 break;
@@ -71,11 +88,11 @@ function simulateRound(playerSelection, computerSelection) {
                 break;
             }
         case 'scissors':
-            if (computerSelection === 'Rock') {
+            if (computerSelection === 'rock') {
                 scoreTable["computer"]++;
                 para.innerText = "You lose! Rock beats scissors!";
                 break;
-            } else if (computerSelection === 'Paper') {
+            } else if (computerSelection === 'paper') {
                 scoreTable["player"]++;
                 para.innerText = "You win! Scissors beats paper!";
                 break;
@@ -93,23 +110,46 @@ function simulateRound(playerSelection, computerSelection) {
     return;
 };
 
-function removeChoices(nodelist) {
-    return
-}
-
 function resetGame() {
-    const content = document.querySelector('.content');
-    content.style.cssText = 'justify-content: center; align-items: center;';
+    const game = document.querySelector('.game');
+    game.style.cssText = 'justify-content: center; align-items: center;';
 
     const resetBtn = document.createElement('button');
     resetBtn.innerText = "PLAY AGAIN";
     resetBtn.classList.add("resetBtn");
 
-    while (content.firstElementChild) {
-        content.removeChild(content.firstElementChild);
+    while (game.firstElementChild) {
+        game.removeChild(game.firstElementChild);
     };
-    content.appendChild(resetBtn);
+    game.appendChild(resetBtn);
     resetBtn.addEventListener('click', () => location.reload());
+};
+
+function flipPlayerCard() {
+    humanCard.classList.toggle('flip');
+};
+
+function flipCpuCard() {
+    cpuCard.classList.toggle('flip');
+};
+
+function addSymbolToCard(element, index, type) {
+    let elementClone;
+    if (type === "human") elementClone = element.cloneNode();
+    else {
+        const cpuElement = document.querySelector(`.choices #${element}`);
+        elementClone = cpuElement.cloneNode();
+    }
+    // const elementClone = element.cloneNode();
+    elementClone.classList.remove('choice');
+    elementClone.classList.add('choice-clone');
+    const cardBacks = document.querySelectorAll('.flip-card-back');
+    cardBacks[index].appendChild(elementClone);
+};
+
+function removeSymbolFromCard(index) {
+    const cardBacks = document.querySelectorAll('.flip-card-back');
+    cardBacks[index].removeChild(cardBacks[index].firstElementChild);
 }
 
 function simulateGame(rounds) {

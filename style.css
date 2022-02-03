@@ -58,6 +58,17 @@ a {
 .content {
     display: flex;
     flex: 1;
+    background-color: black;
+    position: relative;
+}
+
+.block-div {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
 }
 
 .activity, .game {
@@ -78,7 +89,7 @@ a {
 .results-container {
     border: 1px solid black;
     max-height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .results {
@@ -92,6 +103,11 @@ a {
 
 h2, .score {
     text-align: center;
+}
+
+.score {
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .game {
@@ -116,12 +132,12 @@ h2, .score {
     gap: 10px;
 }
 
-.card-pic {
+/* .card-pic {
     background-color: white;
     border: 3px solid black;
     width: 150px;
     height: 200px;
-}
+} */
 
 .choices {
     flex: 1;
@@ -131,7 +147,7 @@ h2, .score {
 }
 
 
-.choice {
+.choice, .choice-clone {
     width: 100px;
     height: 100px;
     border: 1px solid black;
@@ -163,7 +179,7 @@ h2, .score {
 
 
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
-.card-pic-human {
+.card-pic-human, .card-pic-cpu {
     background-color: transparent;
     width: 150px;
     height: 200px;
@@ -181,12 +197,17 @@ h2, .score {
   }
   
   /* Do an horizontal flip when you move the mouse over the flip box container */
-  .card-pic-human .flip-card-inner.flip {
+  .card-pic-human .flip-card-inner.flip,
+  .card-pic-cpu .flip-card-inner.flip {
     transform: rotateY(180deg);
   }
   
   /* Position the front and back side */
   .flip-card-front, .flip-card-back {
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -195,14 +216,19 @@ h2, .score {
   }
   
   /* Style the front side (fallback if image is missing) */
+
   .flip-card-front {
-    background-color: white;
-    color: black;
+    background-color: black;
+    border: 2px solid white;
+    color: white;
+    font-size: 60px;
+    font-weight: bold;
   }
   
   /* Style the back side */
   .flip-card-back {
-    background-color: dodgerblue;
-    color: white;
+    background-color: white;
+    border: 2px solid black;
+    color: black;
     transform: rotateY(180deg);
   }
