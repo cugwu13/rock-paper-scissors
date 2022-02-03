@@ -12,12 +12,13 @@
 <body>
     <div class="nav">
         <div class="logo">
-            <h1>LOGO</h1>
+            <!-- <h1>LOGO</h1> -->
+            <img class="logo-img" src="./img/logo.png" alt="RPS logo">
         </div>
         <div class="nav-rhs">
             <ul class="right-links">
-                <li><a href="">About</a></li>
-                <li><a href="">Contact</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Rock_paper_scissors" target="blank">About</a></li>
+                <li><a href="mailto:email@rockpaperscissors.com?subject=General Inquiry">Contact</a></li>
             </ul>
         </div>
     </div>
@@ -26,7 +27,12 @@
         <div id="block-div"></div>
         <div class="activity">
             <h2>Score</h2>
-            <div class="score">0 - 0</div>
+            <div class="score-container">
+                <p>YOU</p>
+                <div class="score">0 - 0</div>
+                <p>CPU</p>
+            </div>
+            <div class="winner-container"></div>
             <div class="results-container">
                 <div class="results"></div>
             </div>

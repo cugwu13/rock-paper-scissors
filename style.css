@@ -26,7 +26,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #2A4669;
-    padding: 20px;
+    padding: 10px;
 }
 
 .logo, a {
@@ -38,6 +38,12 @@ body {
     padding-left: 50px;
 }
 
+.logo-img {
+    width: 75px;
+    height: auto;
+    border-radius: 50%;
+}
+
 .right-links, h3 {
     font-size: 24px;
 }
@@ -45,6 +51,7 @@ body {
 .right-links {
     display: flex;
     gap: 20px;
+    margin-right: 15px;
 }
 
 ul {
@@ -76,20 +83,43 @@ a {
     margin: 10px;
 }
 
-.score, .results-container {
-    margin: 10px 0;
-}
-
 .activity {
+    display: flex;
+    flex-direction: column;
     flex: 0 0 auto;
     width: 200px;
     background-color: #A2C2E9;
 }
 
+.score-container, .results-container {
+    margin: 10px 0;
+}
+
+.score {
+    flex: 1;
+}
+
+.score-container {
+    display: flex;
+    align-items: center;
+}
+
+.winner-container {
+    display: flex;
+    justify-content: center;
+}
+
 .results-container {
+    margin-top: auto;
     border: 1px solid black;
     max-height: 100vh;
-    overflow-y: auto;
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y proximity;
+}
+
+.results-container > div > p:last-child {
+    scroll-snap-align: end;
 }
 
 .results {
@@ -105,7 +135,7 @@ h2, .score {
     text-align: center;
 }
 
-.score {
+.score, .winner-container {
     font-size: 30px;
     font-weight: bold;
 }
@@ -165,7 +195,7 @@ h2, .score {
     width: 300px;
     height: 100px;
     border-radius: 6px;
-    background-color: burlywood;
+    background-color: white;
     box-shadow: 10px 10px;
     transition: .3s;
 }
@@ -174,19 +204,14 @@ h2, .score {
     transform: scale(1.1);
 }
 
-
-
-
-
-/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+/* Card Flip Animation */
 .card-pic-human, .card-pic-cpu {
     background-color: transparent;
     width: 150px;
     height: 200px;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    perspective: 1000px;
   }
   
-  /* This container is needed to position the front and back side */
   .flip-card-inner {
     position: relative;
     width: 100%;
@@ -196,13 +221,11 @@ h2, .score {
     transform-style: preserve-3d;
   }
   
-  /* Do an horizontal flip when you move the mouse over the flip box container */
   .card-pic-human .flip-card-inner.flip,
   .card-pic-cpu .flip-card-inner.flip {
     transform: rotateY(180deg);
   }
   
-  /* Position the front and back side */
   .flip-card-front, .flip-card-back {
     border-radius: 8px;
     display: flex;
@@ -211,12 +234,10 @@ h2, .score {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
   }
   
-  /* Style the front side (fallback if image is missing) */
-
   .flip-card-front {
     background-color: black;
     border: 2px solid white;
@@ -225,7 +246,6 @@ h2, .score {
     font-weight: bold;
   }
   
-  /* Style the back side */
   .flip-card-back {
     background-color: white;
     border: 2px solid black;

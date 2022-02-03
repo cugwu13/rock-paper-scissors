@@ -6,6 +6,7 @@ const scoreTable = {
 const results = document.querySelector('.results');
 const score = document.querySelector('.score');
 const winner = document.createElement('p');
+const winnerContainer = document.querySelector('.winner-container');
 const humanCard = document.querySelector('.card-pic-human .flip-card-inner');
 const cpuCard = document.querySelector('.card-pic-cpu .flip-card-inner');
 const blockDiv = document.querySelector('#block-div');
@@ -14,8 +15,8 @@ const choices = document.querySelectorAll('.choice');
 choices.forEach(choice => choice.addEventListener(
         'click', () => runClickEvent(choice)));
 
+// Function to run series of functions that make up card animations and page interactions
 function runClickEvent(choice) {
-    // once a choice is clicked, toggle the block div... after some time, toggle it again
     let cpuChoice = computerPlay().toLowerCase();
     toggleBlockDiv();
     addSymbolToCard(choice, 0, "human");
@@ -35,28 +36,32 @@ function runClickEvent(choice) {
     }, 2800);
 };
 
+// Prevent user from selecting choices in rapid succession
 function toggleBlockDiv() {
     blockDiv.classList.toggle('block-div');
 };
 
+// Check if score of 5 has been reached
 function getWinner() {
     for (const opponent in scoreTable) {
         if (scoreTable[opponent] === 5) {
             if (opponent === 'player') winner.innerText = "You win!!";
             else winner.innerText = "You lost :(";
-            score.appendChild(winner);
+            winnerContainer.appendChild(winner);
             setTimeout(resetGame, 1000);
             return;
         };
     };
 };
 
+// Randomize cpu selection
 function computerPlay() {
     let options = ['Rock', 'Paper', 'Scissors'];
     randomIndex = Math.floor(Math.random() * 3);
     return options[randomIndex];
 };
 
+// RPS logic and append results of round to log
 function simulateRound(playerSelection, computerSelection) {
     const para = document.createElement('p');
     playerSelection = playerSelection.toLowerCase();
@@ -110,6 +115,7 @@ function simulateRound(playerSelection, computerSelection) {
     return;
 };
 
+// Clear 'game' div, show 'play again' button
 function resetGame() {
     const game = document.querySelector('.game');
     game.style.cssText = 'justify-content: center; align-items: center;';
@@ -133,6 +139,7 @@ function flipCpuCard() {
     cpuCard.classList.toggle('flip');
 };
 
+// Add choice pic to either card
 function addSymbolToCard(element, index, type) {
     let elementClone;
     if (type === "human") elementClone = element.cloneNode();
@@ -147,18 +154,8 @@ function addSymbolToCard(element, index, type) {
     cardBacks[index].appendChild(elementClone);
 };
 
+// Remvoe choice pic from either card
 function removeSymbolFromCard(index) {
     const cardBacks = document.querySelectorAll('.flip-card-back');
     cardBacks[index].removeChild(cardBacks[index].firstElementChild);
-}
-
-function simulateGame(rounds) {
-    for (let round = 0; round < rounds; round++) {
-        let player = prompt('Rock, Paper, or Scissors?');
-        let computer = computerPlay();
-        simulateRound(player, computer);
-    }
-    let finalScore = `${scoreTable['player']} - ${scoreTable['computer']}`;
-    let winner = () => (scoreTable['player'] > scoreTable['computer']) ? `You win! Final score: ${finalScore}` : `You lose :( Final score: ${finalScore}`;
-    return winner()
 };
