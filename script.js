@@ -146,8 +146,7 @@ function addSymbolToCard(element, index, type) {
     else {
         const cpuElement = document.querySelector(`.choices #${element}`);
         elementClone = cpuElement.cloneNode();
-    }
-    // const elementClone = element.cloneNode();
+    };
     elementClone.classList.remove('choice');
     elementClone.classList.add('choice-clone');
     const cardBacks = document.querySelectorAll('.flip-card-back');
